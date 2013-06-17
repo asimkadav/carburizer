@@ -1,16 +1,25 @@
-(**********************
+(* Copyright (C) 2009 Asim Kadav 
+ *  Permission is hereby granted,
+ * free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software
+ * without restriction, including without limitation the rights to use,
+ * copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+ * of the Software, and to permit persons to whom the Software is furnished
+ * to do so, subject to the following conditions:
+ * The above copyright notice and this permission notice shall be included
+ * in all copies or substantial portions of the Software. * *THE SOFTWARE
+ * IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+ * INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+ * FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER 
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+ * FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+ * DEALINGS IN THE SOFTWARE 
  *
- *   Tolerating hardware device failures in sofware
- *
- *   Asim Kadav                                             
- *   Email: kadav@cs.wisc.edu for any questions or comments.
- *
- *   This code was best optimized to work over Linux 2.6.18.8
- *
- *
- *
- *
- * *)
+ * 
+ *    Tolerating hardware device failures in software 
+ *     Asim Kadav Email: kadav@cs.wisc.edu for any questions or comments. 
+ *)
 
 
 
@@ -19,9 +28,14 @@ open Str
 open Pretty
 open Ptranal
 
+(* This is the maximum timeout value. Currently, we generate wait for 200 counts
+ * _when_ code generation is enabled.
+ *)
 let tickval_exp = (integer 200)
 
-(* Used to check for dirtyness that may impede liveness.
+(* This is the list of device functions that Carburizer uses for taint analysis.
+ * The fi_ functions were used by fault injection tool to interpose and introduce
+ * errors.
  *)
 let bad_functions: string list =
     [ "ioread8";

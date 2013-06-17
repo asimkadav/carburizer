@@ -1,7 +1,7 @@
 carburizer
 ==========
 
-Carburizer is a tool that removes hardware dependence bugs.
+Carburizer is a tool that removes/finds hardware dependence bugs.
 
 Carburizer is a tool that removes hardware dependence bugs. More details here. This page demonstrates how to get carburizer (the static analysis component) working on your local machine.
 Software Required
