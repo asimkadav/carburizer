@@ -1,0 +1,6 @@
+Fault injection module used by carburizer
+=========================================
+
+This is the fault injection driver used by Carburizer.
+Works on  Linux 2.6.18.8 source code. Released under GPL license. 
+

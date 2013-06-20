@@ -1,0 +1,57 @@
+#include <linux/module.h>
+#include <linux/fs.h>
+#include <linux/miscdevice.h>
+#include <linux/version.h>
+
+int init_module(void);
+void cleanup_module(void);
+int fi_ioctl (struct inode *, struct file *, unsigned int, unsigned long);
+
+///////////////////////////////////////////////////////////////////////////////
+// Kernel/driver interaction
+///////////////////////////////////////////////////////////////////////////////
+MODULE_LICENSE("GPL");
+#define FI_MINOR 46
+static struct miscdevice fi_setup;
+struct file_operations fi_fops = {
+    .owner = THIS_MODULE,
+    .ioctl = fi_ioctl,
+};
+
+///////////////////////////////////////////////////////////////////////////////
+// Function implementations
+///////////////////////////////////////////////////////////////////////////////
+int init_module(void){
+
+    // Initialize linux kernel junk
+    fi_setup.minor = FI_MINOR;
+    fi_setup.name = "fimod";
+    fi_setup.fops = &fi_fops;
+    return misc_register(&fi_setup);
+}
+
+void cleanup_module (void) {
+    number = misc_deregister(&fi_setup);
+    if (number < 0) {
+        printk ("misc_deregister failed. %d\n", number);
+    }
+}
+
+//
+// The value/purpose of "arg" is dependent on the value of "cmd".
+//
+int fi_ioctl (struct inode *inode,
+              struct file *fp,
+              unsigned int cmd,
+              unsigned long arg) {
+    int rc = 0;
+    switch (cmd) {
+        case 1:
+        // do something
+            break;
+        default:
+            printk ("Error: specify a valid command.\n");
+            break;
+    }
+    return rc;
+}
